@@ -20,6 +20,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Entregador extends EntidadeAuditavel {
 
    @Column
@@ -27,6 +28,9 @@ public class Entregador extends EntidadeAuditavel {
 
    @Column
    private String cpf;
+
+   @Column 
+   private String rg;
 
    @Column
    private LocalDate dataNascimento;
