@@ -1,10 +1,7 @@
 package br.com.ifpe.oxefood.modelo.produto;
 
-public class ProdutoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    public Produto save(Produto produto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
-    }
+public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     
 }
