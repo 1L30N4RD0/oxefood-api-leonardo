@@ -1,4 +1,6 @@
-package br.com.ifpe.oxefood.api.entregador;
+package br.com.ifpe.oxefood.api.venda;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,52 +11,50 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
 
-import br.com.ifpe.oxefood.modelo.entregador.Entregador;
-import br.com.ifpe.oxefood.modelo.entregador.EntregadorService;
-import jakarta.validation.Valid;
+import br.com.ifpe.oxefood.modelo.venda.Venda;
+import br.com.ifpe.oxefood.modelo.venda.VendaService;
 
 @RestController
-@RequestMapping("/api/entregador")
+@RequestMapping("/api/venda")
 @CrossOrigin
-public class EntregadorController {
+public class VendaController {
 
     @Autowired
-    private EntregadorService entregadorService;
+    private VendaService vendaService;
 
     @PostMapping
-    public ResponseEntity<Entregador> save(@RequestBody @Valid EntregadorRequest request) {
+    public ResponseEntity<Venda> save(@RequestBody VendaRequest request) {
 
-        Entregador entregador = entregadorService.save(request.build());
-        return new ResponseEntity<Entregador>(entregador, HttpStatus.CREATED);
+        Venda venda = vendaService.save(request.build());
+        return new ResponseEntity<Venda>(venda, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public List<Entregador> listarTodos() {
-        return entregadorService.listarTodos();
+    public List<Venda> listarTodos() {
+        return vendaService.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Entregador obterPorID(@PathVariable Long id) {
-        return entregadorService.obterPorID(id);
+    public Venda obterPorID(@PathVariable Long id) {
+        return vendaService.obterPorID(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Entregador> update(@PathVariable("id") Long id, @RequestBody EntregadorRequest request) {
+    public ResponseEntity<Venda> update(@PathVariable("id") Long id, @RequestBody VendaRequest request) {
 
-        entregadorService.update(id, request.build());
+        vendaService.update(id, request.build());
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
 
-        entregadorService.delete(id);
+        vendaService.delete(id);
         return ResponseEntity.ok().build();
     }
-
 }

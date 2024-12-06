@@ -1,11 +1,14 @@
 package br.com.ifpe.oxefood.modelo.produto;
 
-import jakarta.transaction.Transactional;
-
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
+import br.com.ifpe.oxefood.util.exception.EntidadeNaoEncontradaException;
+import br.com.ifpe.oxefood.util.exception.ProdutoException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class ProdutoService {
@@ -15,6 +18,13 @@ public class ProdutoService {
 
     @Transactional
     public Produto save(Produto produto) {
+
+        if (produto.getValorUnitario() < 20) {
+            throw new ProdutoException(ProdutoException.MSG_VALOR_MINIMO_PRODUTO);
+        }
+        if (produto.getValorUnitario() > 100) {
+            throw new ProdutoException(ProdutoException.MSG_VALOR_MAXIMO_PRODUTO);
+        }
 
         produto.setHabilitado(Boolean.TRUE);
         return repository.save(produto);
@@ -27,7 +37,13 @@ public class ProdutoService {
 
     public Produto obterPorID(Long id) {
 
-        return repository.findById(id).get();
+        Optional<Produto> consulta = repository.findById(id);
+
+        if (consulta.isPresent()) {
+            return consulta.get();
+        } else {
+            throw new EntidadeNaoEncontradaException("Entregador", id);
+        }
     }
 
     @Transactional
@@ -42,7 +58,7 @@ public class ProdutoService {
         repository.save(produto);
     }
 
-     @Transactional
+    @Transactional
     public void delete(Long id) {
 
         Produto produto = repository.findById(id).get();

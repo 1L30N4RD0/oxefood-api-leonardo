@@ -2,10 +2,15 @@ package br.com.ifpe.oxefood.api.entregador;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotEmpty;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import br.com.ifpe.oxefood.modelo.entregador.Entregador;
-// import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,59 +22,67 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EntregadorRequest {
 
-   private String nome;
+    @NotNull(message = "O Nome é de preenchimento obrigatório")
+    @NotEmpty(message = "O Nome é de preenchimento obrigatório")
+    @Length(max = 100, message = "O Nome deverá ter no máximo {max} caracteres")
 
-   private String cpf;
- 
-   private String rg;
+    private String nome;
 
-   @JsonFormat(pattern = "dd/MM/yyyy")
-   private LocalDate dataNascimento;
+    @NotBlank(message = "O CPF é de preenchimento obrigatório")
+    @CPF
+    private String cpf;
 
-   private String foneCelular;
+    private String rg;
 
-   private String foneFixo;
-  
-   private int qtdEntregasRealizadas;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataNascimento;
 
-   private double valorFrete;
+    @Length(min = 8, max = 20, message = "O campo Fone tem que ter entre {min} e {max} caracteres")
+    @Pattern(regexp = "^81\\d{9}$")
+    private String foneCelular;
 
-   private String enderecoRua;
+    private String foneFixo;
 
-   private String enderecoComplemento;
+    private int qtdEntregasRealizadas;
 
-   private String enderecoNumero;
+    private double valorFrete;
 
-   private String enderecoBairro;
+    private String enderecoRua;
 
-   private String enderecoCidade;
- 
-   private String enderecoCep;
+    private String enderecoComplemento;
 
-   private String enderecoUf;
-   
-   private Boolean ativo;
+    private String enderecoNumero;
 
-   public Entregador build() {
+    private String enderecoBairro;
 
-       return Entregador.builder()
-           .nome(nome)
-           .cpf(cpf)
-           .rg(rg)
-           .dataNascimento(dataNascimento)
-           .foneCelular(foneCelular)
-           .foneFixo(foneFixo)
-           .qtdEntregasRealizadas(qtdEntregasRealizadas)
-           .valorFrete(valorFrete)
-           .enderecoRua(enderecoRua)
-           .enderecoComplemento(enderecoComplemento)
-           .enderecoNumero(enderecoNumero)
-           .enderecoBairro(enderecoBairro)
-           .enderecoCidade(enderecoCidade)
-           .enderecoCep(enderecoCep)
-           .enderecoUf(enderecoUf)
-           .ativo(ativo)
-           .build();
-   }
+    private String enderecoCidade;
+
+    private String enderecoCep;
+
+    private String enderecoUf;
+
+    private Boolean ativo;
+
+    public Entregador build() {
+
+        return Entregador.builder()
+                .nome(nome)
+                .cpf(cpf)
+                .rg(rg)
+                .dataNascimento(dataNascimento)
+                .foneCelular(foneCelular)
+                .foneFixo(foneFixo)
+                .qtdEntregasRealizadas(qtdEntregasRealizadas)
+                .valorFrete(valorFrete)
+                .enderecoRua(enderecoRua)
+                .enderecoComplemento(enderecoComplemento)
+                .enderecoNumero(enderecoNumero)
+                .enderecoBairro(enderecoBairro)
+                .enderecoCidade(enderecoCidade)
+                .enderecoCep(enderecoCep)
+                .enderecoUf(enderecoUf)
+                .ativo(ativo)
+                .build();
+    }
 
 }
