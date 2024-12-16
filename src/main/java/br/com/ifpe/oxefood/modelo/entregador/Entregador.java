@@ -20,54 +20,52 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Entregador extends EntidadeAuditavel {
+    @Column (nullable = false, length = 100)
+    private String nome;
 
-   @Column
-   private String nome;
+    @Column (unique = true)
+    private String cpf;
 
-   @Column
-   private String cpf;
+    @Column (unique = true)
+    private String rg;
 
-   @Column 
-   private String rg;
+    @Column (nullable = false)
+    private LocalDate dataNascimento;
 
-   @Column
-   private LocalDate dataNascimento;
+    @Column (nullable = false)
+    private String foneCelular;
 
-   @Column
-   private String foneCelular;
+    @Column (nullable = false)
+    private String foneFixo;
 
-   @Column
-   private String foneFixo;
+    @Column
+    private Integer qtdEntregasRealizadas;
 
-   @Column
-   private int qtdEntregasRealizadas;
+    @Column
+    private Double valorFrete;
 
-   @Column
-   private double valorFrete;
+    @Column (nullable = false)
+    private String enderecoRua;
 
-   @Column
-   private String enderecoRua;
+    @Column 
+    private String enderecoComplemento;
 
-   @Column
-   private String enderecoCompleto;
+    @Column (nullable = false)
+    private String enderecoNumero;
 
-   @Column
-   private String enderecoNumero;
+    @Column (nullable = false)
+    private String enderecoBairro;
 
-   @Column
-   private String enderecoBairro;
+    @Column (nullable = false)
+    private String enderecoCidade;
 
-   @Column
-   private String enderecoCidade;
+    @Column (nullable = false)
+    private String enderecoCep;
 
-   @Column 
-   private String enderecoCep;
+    @Column (nullable = false)
+    private String enderecoUf;
 
-   @Column
-   private String enderecoUf;
-   
-   @Column
-   private boolean ativo;
+    @Column (nullable = false)
+    private Boolean ativo;
 }
