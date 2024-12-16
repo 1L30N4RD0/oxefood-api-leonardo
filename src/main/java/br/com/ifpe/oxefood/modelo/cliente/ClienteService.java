@@ -27,7 +27,7 @@ public class ClienteService {
         return repository.save(cliente);
     }
 
-    public List<Cliente> listarTodos() {
+    public List<Cliente> listarTodo() {
 
         return repository.findAll();
     }
